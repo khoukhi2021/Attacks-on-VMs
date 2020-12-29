@@ -1,5 +1,5 @@
 class AttackInterface:
-    
-    def launchAttack(self):
-        #Todo
+
+    def launch_attack(self):
+        # Todo
         pass

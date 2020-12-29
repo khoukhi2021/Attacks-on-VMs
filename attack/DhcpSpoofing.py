@@ -1,6 +1,8 @@
-from . import AttackInterface 
-class DhcpPoisonong(AttackInterface):
+import AttackInterface
+
+
+class DhcpSpoofing(AttackInterface):
     
-    def launchAttack(self):
-        #Override
+    def launch_attack(self):
+        # Override
         pass

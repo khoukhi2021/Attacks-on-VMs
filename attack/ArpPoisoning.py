@@ -1,6 +1,8 @@
-from . import AttackInterface 
-class ArpPoisonong(AttackInterface):
+import AttackInterface
+
+
+class ArpPoisoning(AttackInterface):
     
-    def launchAttack(self):
-        #Override
+    def launch_attack(self):
+        # Override
         pass

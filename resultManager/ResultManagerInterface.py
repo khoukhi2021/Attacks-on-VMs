@@ -1,5 +1,7 @@
-from ..attack import AttackInterface 
+from attack import AttackInterface
+
+
 class ResultManagerInterface:
-    def createResults(self, attack: AttackInterface):
-        #Todo
+    def create_results(self, attack: AttackInterface):
+        # Todo
         pass
