@@ -1,0 +1,51 @@
+1.	ARP Poisoning
+
+1.1.	Principle of the attack
+ARP Poisoning (also known as ARP Spoofing or ARP Cache Poisoning) is a type of network cyberattack, that can be both active or passive depending on the attacker’s intent. The attack, as the name implies, is based on ARP protocol, which is used inside a LAN in order to associate MAC addresses with matching IP addresses in order for the router to send traffic to the proper destination [36], [37], [39].
+This attack is a Man in the Middle attack, as the attack fools both the host and the target in order for data to transit through the attacker’s machine by sending ARP response packets.
+
+1.2.	ARP Protocol
+ARP (Address Resolution Protocol) is a telecommunications protocol used inside a LAN (Local Area Network) in order to associate IP addresses (Network layer) to MAC addresses (Data Link layer), in order to divert the right internet traffic to the designated machine inside the network. [38]
+ARP protocol is generally used to contact the gateway or router used to connect to other networks and the internet. Such gateway or router (the Host) keeps a table (ARP cache) linking IP and MAC addresses, in order to forward traffic to the right target. When traffic to an unknown IP address is received, the Host sends an ARP request on the network, waiting for the answer of the machine with the right MAC address. As ARP has been designed for speed and not security, it does not natively integrate any form of authentication, making it a privileged attack point for attackers. Also, one of the critical flaws exploited by an ARP Spoofing attack is the fact that hosts will accept ARP response packets even though they have not sent any request.
+
+1.3.	Steps of the attack
+
+1.3.1.	Reconnaissance
+As with every cyberattack, this phase consists in gathering as much intel as possible on the target in order to plan the proper attack on the system. As direct access to the targeted network is required to conduct the attack, it comes in handy to have knowledge about the router or gateway used, as well as the protective measures on the network and on the different systems [39], [40].
+
+1.3.2.	Weaponization
+The attacker here has the choice to either conceive its own tools or to use already existing ones, such as Arpspoof or Driftnet.
+
+1.3.3.	Delivery
+The means of delivery will here depend on the possibilities and choices of the attacker. He can either choose to access the network with a machine that is already in it (in the case of an attack on the company, a computer of the company connected to the right network will do), or use his own and connect it to the network. 
+
+1.3.4.	Exploitation
+Once connected to the target network, the attacker needs to bypass the defenses set in order to make his ARP response packets accepted by the targeted host.
+
+1.3.5.	Installation & C2C – Command and Control
+When connexion is established, the attacker already has “hands on keyboard” access to the target system, making Installation process unnecessary. The C2C process will only consist in bypassing defenses in order to maintain connexion. 
+
+1.3.6.	Actions & Objectives
+Once the connexion is securised, the Man in the Middle phase of the attack is completed, as the attacker has access to all the data meant to be sent to the target. While it can be the end of the attack in itself, such phase can be followed by other phases, such as a DoS (Denial of Services) attack by dropping received packets, modify the data forwarded, or perform session hijacking if a session ID is received.
+
+2.	Countermeasures against ARP Poisoning attack
+
+While ARP Poisoning attacks are relatively easy to conduct as long as the attacker has access to the targeted network, there are ways to prevent and defend against such attacks.
+
+2.1.	Static ARP Entries
+One of the basic ways to make ARP Poisoning inoperable inside a network is by using static read-only ARP entries set up manually [57], [59I]. Such configuration will ignore any packet that would normally induce a modification in the mapping. While providing some security against ARP Poisoning attacks, such an option is nearly never used as it requires a lot of maintenance effort, as the generated mappings need to be manually transferred to all the hosts in the network in order for them to be able to communicate with one another. Any addition, deletion or modification in the mapping also requires manual maintenance, making such a solution relatively inoperable in most situations.
+
+2.2.	Packet Filtering
+Another solution in order to prevent ARP Spoofing attacks is to set up some packet filtering on the network [58], [59]. Such filtering will detect ARP poisoning trough the conflicting information contained inside the packets, and block such packets in order to maintain network integrity.
+
+2.3.	Software and configuration
+There are some pieces of software that are able to detect and prevent ARP poisoning attacks, such Snort, X-ARP, ARP_Antidote, etc. They can use active, passive or both types of defences. While passive defences mainly consist in packet filtering, active defences usually involve some sort of certification in order to authenticate the machine responding to the ARP request, as the ARP protocol lacks native authentication check.
+
+2.4.	 Operating System Level
+It is to be noted that operating systems may have some sort of protection against ARP Poisoning attacks [57]. Linux distros ignores unsolicited ARP replies, while Solaris will only accept such replies after a preset timeout. On Microsoft Windows, the behaviour of the ARP Cache can be configured with a set of registry values.
+
+2.5.	Traffic Encryption
+One of the options in order to protect a network against many types of attacks is traffic encryption [58]. As with all Man in the Middle attacks, traffic encryption makes the attacker unable to do anything with the packets he receives, as such packets are encrypted with keys the attacker does not have access to. In these cases, the attacker is able to conduct the attack, but the received information, that is encrypted, is pointless for him.
+
+2.6.	IPV6 NDP
+Lastly, one of the most effective ways to protect a network from ARP Spoofing attacks is to use IPV6 instead of IPV4 and the associated Network Discovery Protocol (NDP) [60], which includes native authentication check, and also provides an extension, Secure Neighbor Discovery (SEND) [61],  that can add a cryptographic layer to the communication, thus providing a way more secure infrastructure that cannot be targeted by ARP Poisoning attacks. However, the majority of the internet still uses IPV4 instead of IPV6, as the switch remains costly, relatively complex for large organisations, and is also still impacted by some software and hardware incompatibility. Enventually, while IPV6 is the best option in order to protect a network from ARP Poisoning attacks, companies usually do not consider it as a requirement.

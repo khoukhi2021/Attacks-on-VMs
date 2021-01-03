@@ -1,0 +1,42 @@
+1.	DHCP & DNS Spoofing
+
+1.1.	What is spoofing ?
+The term spoofing is used in digital communications such as phone calls, email, ip related communications (DHCP, DNS and ARP). This term designates the fact of disguising yourself as a known and trusted source in order to get all the data traffic. As you replace the supposed known source, you gain access to the traffic and so, you are not only able to listen to it but also falsify datas and spread malwares. [41]
+
+1.2.	DHCP Spoofing 
+
+1.2.1.	DHCP Protocol
+Dynamic Host Configuration Protocol is a network management protocol. It is used in Internet Protocols (IP). DHCP’s goal is to distribute dynamically IP addresses to each system of a network. For example, a network that has fifty machines but only ten ip addresses to distribute can use a DHCP server. That server will dynamically distribute IP addresses and allow the network to use all it’s machines. [42]
+
+1.2.2.	DHCP Starvation
+DHCP starvation is an attack that aims to create a “new” DHCP server that will respond to all the requests of the network instead of the original DHCP server. You can realize a DHCP starvation attack by sending a lot of fake DHCP requests to the DHCP server using a spoofed IP. If the DHCP server responds to them he will run out of IP addresses to distribute, at this point you can create a rogue server that will respond to the network’s requests instead of the original server. [43]
+
+1.2.3.	DHCP Spoofing 
+Once that is done, we can begin the DHCP spoofing attack. As DHCP communicates with all the networks machines, it is kind of a hub of data. If someone can respond instead of the DHCP server, he can redirect the whole traffic and that is what we want to do in this attack. Once the rogue server is in place we can send requests and messages to the machines from the network to change their configuration, in particular their default gateway. Changing their default gateway will change the routing configuration and we can redirect the traffic to what we want (often the attacker’s pc or a machine from outside of the network). We can now collect data, launch a man in the middle attack. For example broadcasting malwares in the network. [43]
+
+1.3.	DNS Spoofing 
+
+1.3.1.	What is a DNS ?
+DNS, Domain Name Server refers to the DNS server which is the internet phone book. Basically DNS will translate a site name (mostly URLs, for example http://google.com) into IP addresses. As machines can’t communicate using URLs and humans can’t  memorize IP addresses, DNS links those two representations. As the servers make links between request and actual IP addresses you can think of a way to spoof it!
+
+1.3.2.	DNS Spoofing Attacks
+DNS spoofing attack is the same as DHCP spoofing attack, you want to disguise yourself as a known source in order to redirect the traffic to you. There are multiple spoofing attacks: this following description is the DNS hijack attack. To perform DNS hijack attack , you need to access the DNS server and once that is done, you can change the DNS tables in order to redirect the traffic from a great website to a fake web site and gather data and credentials. [45], [46]
+
+The second attack is the same but from the client side. This attack aims to redirect the traffic of the client only and make him think that he is on the real website. In order to do that you have to spoof the DNS server and communicate with the client instead of the DNS server. Once you spoof the DNS server, the client will communicate with you only and you are free to redirect him on a fake website. [45], [46]
+
+2.	To prevent DHCP & DNS Spoofing
+
+2.1.	DHCP Spoofing defences
+
+2.1.1.	       DHCP spoofing protection
+DHCP snooping is an option that you can enable. Once enabled the trusted switch ports of DHCP servers are memorized. For each DHCP request that goes through the switch, it checks if the port is trusted or untrusted. If it is untrusted it can just delete the request, that prevents fake DHCP servers to take over the network. [63]
+
+2.1.2.	IP Source Guard
+IP source guard is based on IP address and subnet masks. It checks whether a request destination is in the subnet or not. 
+When a rogue DHCP server tries to spoof addresses, it can randomly take valid or invalid addresses. If a request asks for an IP destination that is not in the subnet then the request is deleted. But IP source guard is not that effective because the rogue server could take valid destination IP addresses and these would be forwarded. [63]
+
+2.1.3.	Dynamic ARP Inspection
+Like DHCP snooping, trusted and untrusted sources are memorized in ARP tables. If a request with an untrusted source appears, it will be registered as an untrusted source, if it conflicts with an ARP table’s entry it will send a log and drop the request. That way it prevents wrong sources from being added to trusted sources. [63]
+
+2.2.	DNS Spoofing defences
+There are multiple ways to keep your DNS safe. The best way is to keep it inside your network and not open it to extern sources. But there are other ways, you could configure it safer. Using a random source port would prevent someone that isn’t supposed to communicate with the DHCP server to send requests as they would not know the port. You can also randomize the outgoing requests. In order to do that one can for example randomize the query ID or randomize domain names. These randomizations will make it harder for hackers to spoof requests. [64]

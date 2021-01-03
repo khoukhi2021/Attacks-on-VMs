@@ -1,0 +1,60 @@
+1.	VoIP Calls Listening
+
+1.1.	Difference between IP Telephony and VoIP
+
+1.1.1.	       IP Telephony : a communication infrastructure
+IP Telephony is a telephony infrastructure operating over IP thanks to an IPBX (Internet Private Branch Exchange). The IPBX connects the telephones and all terminals via the computer network. This infrastructure is mainly deployed in companies. This infrastructure enables unified communications by providing a collaborative platform with applications to communicate with voice, text and video (internal instant messaging app). [47]
+
+1.1.2.	VoIP: a protocol for voice transmission over the Internet Network
+VoIP (Voice over Internet Protocol) is a protocol used to transport voice streams over a data network. The voice is scanned to be converted into a decomposable digital signal. Then, the voice call is divided into data packets for transmission over the Internet network and will be brought together when it arrives. Thus, the voice is transferred by data packets like any data circulating on the web. This protocol was popularized by Skype in the 2000s. The difference with the conventional phone: the analog phone transforms air vibrations into an analog electric frequency and transmits them via the RTC network (Real-Time Communication) through analog lines via a phone socket. [49]
+VoIP is only a change in routing protocol, it does not offer additional service, the tools used (landline) remain the same. It is the continuity of the analog telephone service that is going to disappear. The VoIP architecture is to be considered at the level of telephone subscriptions: VoIP subscriptions can be purchased from professional telecoms operators. Landline phones can therefore use VoIP via Internet Service Provider. VoIP relies on the Internet connection to carry the voice, so the quality of the call will depend on the quality of the connection. For voice calls or video conferencing on a computer, one speaks of “softphone” for software phones, which involves the IP Telephony infrastructure. [50]
+
+1.2.	Protocols related to VoIP
+The VoIP protocol uses 2 types of protocols: 
+•	Signaling: SIP (mainly) -> management of exchanges between client/server 
+•	Media transport: RTP -> routing media (voice or video)
+
+1.2.1.	SIP
+SIP (Session Initiation Protocol) is a protocol used to initiate, maintain and terminate multimedia communication sessions. SIP packets can include voice or video data. It improves VoIP, supporting video conferencing, instant messaging and text. The SIP protocol can handle 4 roles: [51][52]
+•	User Agent: initiates and terminates sessions by transmitting requests and responses. This can be an UAC (User Agent Client) that launches requests or an UAS (User Agent Server) that contacts the users.
+•	Proxy Server: gateway that redirects requests between the UAC and the UAS.
+•	Redirect Server: in charge of redirecting calls when the physical location of an user has changed, is also useful to offload servers. 
+•	Registrar: allows to save communication [51]
+
+1.2.2.	RTP & RCTP
+RTP (Real-Time Transport Protocol) is a protocol considered as the standard for audio and video transport. This protocol is more suitable than TCP for example because it has a shorter transmission time because TCP promotes reliability to speed.
+It is used in conjunction with the RTCP (Real-Time Control Protocol) which collects traffic statistics and provides access to Quality of Service (QoS). It is this protocol that collects the information about the jig, the latency period and the loss of packets. [52]
+
+1.3.	Listening VoIP Calls
+Eavesdropping consists in secretly listening to VoIP calls. The attacker captures SIP requests or the sent data through RTP protocol.
+The first step of an Eavesdropping attack is a Man-In-the-middle attack. The attacker must redirect network traffic to him. It can use a spoofing ARP attack to associate its MAC address as the IP address of the PBX in order to receive all communications. [53],[54]
+
+Then, the attacker will receive all the packets on his network, and he will be able to analyze them with a sniffer such as Wireshark. Indeed, Wireshark allows you to decode and play RTP voice packets. [55],[56]
+
+2.	To guard against VoIP Calls Listening
+To avoid listening on VoIP, there are several recommendations to follow.
+
+2.1.	 Use of VLANS
+VLAN is a virtual local network that allows to group machines together according to logical criteria and to free from the boundaries of the physical network (localisation, addressing). These criteria may be for instance:
+•	MAC addresses
+•	Port number used
+•	Protocol used
+In the context of VoIP, this logical segmentation is particularly useful against attacks, for example by separating data and voice streams. Thus, if an attacker succeeds in collecting the data streams, he will not have voice streams. [65]
+
+2.2.	 Switchport Security Mac Addresses
+In order to prevent a connection from an attacker to a port of the switch, it is possible to control/limit the MAC addresses that can connect to each port. It is both possible to limit the maximum number of MAC addresses for each port or to specify the list of allowed MAC addresses. [66], [67]
+
+2.3.	 Use of IPSec Tunnels
+IPSec (Internet Protocol Security) tunnels allow private, protected and authenticated communications over IP networks using cryptographic encryption algorithms. [68]
+
+2.4.	 Use of TLS with SIP
+SIP messages should be encrypted with the Transport Layer Security (TLS) protocol. This protocol allows authenticating the server (and sometimes the client), encrypting data and ensuring data integrity. TLS replaces SSL which has vulnerabilities, it should be used instead and SSL should be disabled on the servers. [69]
+
+2.5.	 Use SRTP/SRTCP instead of RTP/RTCP
+SRTP and SRTCP are the secure versions of RTP/RTCP. These protocols ensure the confidentiality of voice/video messages with 128-bit AES-CM encryption and message authentication with HMAC-SHA1 without reducing the quality of service (QoS). [53], [70], [71]
+	
+2.6.	 Use MiKEY for key exchange
+MiKEY is a key management protocol for real-time applications. It can be used for VoIP in the SRTP protocol for necessary key exchanges for encryption of messages. MiKEY uses mainly 3 methods for key exchange: [72]
+•	Pre-Shared Key (PSK)
+•	Public Key (PK) 
+•	Diffie-Hellman
