@@ -54,6 +54,12 @@ class ResultCreator(object):
                 l.append(cell_obj.value)
             treeview.insert("", 'end', text="L" + str(i), values=tuple(l), tags=("data",))
         treeview.grid(column=4, row=1, columnspan=max_column, rowspan=max_row, sticky=('EWNS'))
+        self.treeview = treeview
         return treeview
+
+    def grid_remove(self):
+        if self.treeview != None:
+            self.treeview.grid_forget()
+
 
 

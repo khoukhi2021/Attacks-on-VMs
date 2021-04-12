@@ -83,11 +83,11 @@ class MainView(object):
             self._content.columnconfigure(j, weight=1)
 
     def updateMainLabel(self, new_widget):
+        self._mainLabel.grid_remove()
         self._mainLabel = new_widget
 
     def clearMainLabel(self):
         self._mainLabel.image.blank()
-        self._NetworkImage.image = None
 
     def displayScrolledText(self,scrolledText):
         self.changeMainLabelTitle("INFORMATION")
@@ -97,9 +97,7 @@ class MainView(object):
 
     def displayExcel(self,treeview):
         self.changeMainLabelTitle("RESULTS")
-        widget = ttk.Treeview()
-        widget = treeview
-        self.updateMainLabel(widget)
+        self.updateMainLabel(treeview)
 
     def displayAudioWidget(self,audio):
         self.changeMainLabelTitle("RESULTS")
