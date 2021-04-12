@@ -11,6 +11,8 @@ class TextInformation(object):
         self._scrolledText = tkst.ScrolledText(currentContent, wrap="word", font=("Segoe UI", "11"))
 
     def selectInformationText(self):
+        if self._typeAttack == 'Extract Images':
+            return "Model/Information/Resources/General.txt"
         if self._typeAttack == '':
             return "Model/Information/Resources/General.txt"
         else:

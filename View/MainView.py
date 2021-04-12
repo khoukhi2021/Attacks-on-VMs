@@ -1,7 +1,5 @@
 import tkinter.ttk as ttk
 import tkinter as Tk
-from Model.ResultAttack.ResultCreator import ResultCreator
-from Model.Information.TextInformation import TextInformation
 
 
 class MainView(object):
@@ -14,10 +12,9 @@ class MainView(object):
         self.createLabelWidgets()
         self.createButtonWidget()
         self.createComboBoxAttack()
+        self.createComboBoxPcap()
         self.placeWidgets()
         self.makeResizableWidgets()
-        #self._informationView = TextInformation(self)
-        #self._resultView = ResultCreator(self)
 
     def start(self):
         self._root.mainloop()
@@ -49,23 +46,30 @@ class MainView(object):
         self._informationButton = Tk.Button(self._content, image=informationButtonImage,
                                             command=lambda: self._presenter.getInformationText())
         self._informationButton.image = informationButtonImage
-        self._startButton = Tk.Button(self._content, text="Start", bg='#4ABBBF',
-                                      command=lambda: self._presenter.getResulAttack())
+        self._startButton = Tk.Button(self._content, text="Start", bg='#4ABBBF',command=lambda: self._presenter.getResulAttack())
 
     def placeWidgets(self):
         self._mainLabelTitle.grid(column=4, row=0, columnspan=7, rowspan=1, sticky=('EWNS'))
         self._AttackLabel.grid(column=0, row=0, columnspan=4, rowspan=1, sticky=('EWNS'))
         self._attackCombobox.grid(column=0, row=1, columnspan=2, rowspan=1, sticky=('EWNS'))
+        self._pcapCombobox.grid(column=0, row=2, columnspan=2, rowspan=1, sticky=('EWNS'))
         self._mainLabel.grid(column=4, row=1, columnspan=7, rowspan=3, sticky=('EWNS'))
         self._informationButton.grid(column=0, row=3, columnspan=1, rowspan=1, sticky=('EWNS'))
         self._startButton.grid(column=2, row=3, columnspan=1, rowspan=1, sticky=('EWNS'))
 
     def createComboBoxAttack(self):
-        attacksList = ['ARP Poisoning', 'DHCP Poisoning', 'VoIP Eavesdropping']
+        attacksList = ['ARP Poisoning', 'DHCP Poisoning', 'VoIP Eavesdropping','Extract Images']
         self._attackCombobox = ttk.Combobox(self._content, state="readonly", values=attacksList)
+
+    def createComboBoxPcap(self):
+        pcapsList = ['cards.pcap']
+        self._pcapCombobox = ttk.Combobox(self._content, state="readonly", values=pcapsList)
 
     def getAttack(self):
         return self._attackCombobox.get()
+
+    def getPcap(self):
+        return self._pcapCombobox.get()
 
     def getContent(self):
         return self._content
@@ -85,27 +89,20 @@ class MainView(object):
         self._mainLabel.image.blank()
         self._NetworkImage.image = None
 
-    def destroyMainLabel(self):
-        self._mainLabel.destroy()
-
     def displayScrolledText(self,scrolledText):
         self.changeMainLabelTitle("INFORMATION")
         scrolledText.config(state=Tk.DISABLED)
         scrolledText.grid(column=4, row=1, columnspan=5, rowspan=3, sticky='EWNS')
         self.updateMainLabel(scrolledText)
 
-    def displayExcel(self,treeview,max_row,max_column):
+    def displayExcel(self,treeview):
         self.changeMainLabelTitle("RESULTS")
-        self.treeview_scrollbar = ttk.Scrollbar(self._GUI._content, orient="vertical",
-                                                command=self._GUI._mainLabel.yview)
-        treeview.configure(yscrollcommand=self.treeview_scrollbar.set)
-        self.treeview_scrollbar.grid(row=1, column=9, sticky=('EWNS'))
-        treeview.grid(column=4, row=1, columnspan=max_column, rowspan=max_row, sticky=('EWNS'))
-        self.updateMainLabel(treeview)
+        widget = ttk.Treeview()
+        widget = treeview
+        self.updateMainLabel(widget)
 
     def displayAudioWidget(self,audio):
         self.changeMainLabelTitle("RESULTS")
-        self.destroyMainLabel()
 
         playButtonImage = Tk.PhotoImage(file='View/Resources/Pictures/play.png')
         playButton = Tk.Button(self._content, image=playButtonImage, justify='center',

@@ -1,4 +1,3 @@
-
 from audioplayer import AudioPlayer
 from openpyxl import load_workbook
 import tkinter.ttk as ttk
@@ -54,19 +53,7 @@ class ResultCreator(object):
                 cell_obj = sheet.cell(row=i, column=j)
                 l.append(cell_obj.value)
             treeview.insert("", 'end', text="L" + str(i), values=tuple(l), tags=("data",))
+        treeview.grid(column=4, row=1, columnspan=max_column, rowspan=max_row, sticky=('EWNS'))
+        return treeview
 
-        return (treeview, max_row, max_column)
 
-    def managePause(self):
-        if self._paused:
-            self.resume()
-        else:
-            self.pause()
-
-    def pause(self):
-        self._paused = True
-        self._resultAudio.pause()
-
-    def resume(self):
-        self._paused = False
-        self._resultAudio.resume()
