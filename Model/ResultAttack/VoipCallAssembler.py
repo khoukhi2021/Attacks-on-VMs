@@ -34,6 +34,20 @@ class VoipCallAssembler(object):
         if self.rawAudio is not None:
             subprocess.call(f"sox -r 8000 -e u-law -b 8 -c 1 {nameFile}.raw {nameFile}.wav", shell=True)
 
+    # def managePause(self):
+    #     if self._paused:
+    #         self.resume()
+    #     else:
+    #         self.pause()
+    #
+    # def pause(self):
+    #     self._paused = True
+    #     self._resultAudio.pause()
+    #
+    # def resume(self):
+    #     self._paused = False
+    #     self._resultAudio.resume()
+
 
 if __name__ == '__main__':
     VoipCallAssembler("Forensic.pcap")
