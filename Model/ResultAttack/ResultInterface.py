@@ -1,6 +1,5 @@
-from Model.Attack import AttackInterface
 from Model.ResultAttack.ResultCreator import ResultCreator
-from Model.ResultAttack.ImagePCAP import Recapper
+from Model.ResultAttack.ImagePCAP import ImagePCAP
 
 
 class ResultInterface:
@@ -13,6 +12,6 @@ class ResultInterface:
         elif attack == 'DHCP Poisoning':
             return ResultCreator(attack,"DHCP.xlsx",content)
         elif attack == 'Extract Images':
-            Recapper("Model/ResultAttack/Results/PCAPs/"+content)
+            ImagePCAP("Model/ResultAttack/Results/PCAPs/"+content)
         else:
             return " "
