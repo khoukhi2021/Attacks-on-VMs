@@ -62,7 +62,7 @@ class MainView(object):
         self._attackCombobox = ttk.Combobox(self._content, state="readonly", values=attacksList)
 
     def createComboBoxPcap(self):
-        pcapsList = ['cards.pcap']
+        pcapsList = ['cards.pcap', 'GIF.pcap']
         self._pcapCombobox = ttk.Combobox(self._content, state="readonly", values=pcapsList)
 
     def getAttack(self):
