@@ -6,9 +6,10 @@ import os
 class ResultCreator(object):
 
     def __init__(self, attack, resultfile,currentContent):
+        self.audio = None
+        self.paused = False
         self._attack = attack
         self._resultFile = resultfile
-        self._paused = False
         self._content = currentContent
         self.load_attack_results()
 
@@ -25,7 +26,35 @@ class ResultCreator(object):
                 return self.parseExcel(self._attack, self._resultFile, self._content)
 
     def createAudioPlayer(self):
-        return AudioPlayer("Model/ResultAttack/Results/VoIP Eavesdropping/" + self._resultFile)
+        self.audio = AudioPlayer("Model/ResultAttack/Results/VoIP Eavesdropping/" + self._resultFile)
+        return self.audio
+
+    def play(self):
+        if self.audio is not None:
+            self.audio.play(block=False)
+
+    def managePause(self):
+        if self.audio is not None:
+            if self.paused:
+                self.resume()
+            else:
+                self.pause()
+
+    def pause(self):
+        if self.audio is not None:
+            self.paused = True
+            self.audio.pause()
+
+    def resume(self):
+        self.paused = False
+        self.audio.resume()
+
+    def changeState(self):
+        self.pause = (not self.paused)
+
+    def close(self):
+        self.audio.close()
+
 
     def parseExcel(self, type_attack, name_file,currentContent):
         filepath = "Model/ResultAttack/Results/" + type_attack + "/" + name_file
