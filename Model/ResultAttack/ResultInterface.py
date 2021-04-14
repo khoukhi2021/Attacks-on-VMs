@@ -6,7 +6,7 @@ class ResultInterface:
 
     def create_results(self, attack, content):
         if attack == 'VoIP Eavesdropping':
-            return ResultCreator(attack,"Test.wav", content)
+            return ResultCreator(attack,"forensic.wav", content)
         elif attack == 'ARP Poisoning':
             return ResultCreator(attack,"ARP.xlsx",content)
         elif attack == 'DHCP Poisoning':
