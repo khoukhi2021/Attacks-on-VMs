@@ -24,11 +24,11 @@ class Presenter:
         content = self.view.getContent()
         interfaceResult = ResultInterface()
         if attack == 'VoIP Eavesdropping':
-            self.view.displayAudioWidget(interfaceResult.create_results(attack, content))
+            self.view.displayAudioWidget(interfaceResult.create_results(attack,file, content))
         elif attack == 'ARP Poisoning' or attack == 'DHCP Poisoning':
-            result = interfaceResult.create_results(attack,content)
+            result = interfaceResult.create_results(attack,None,content)
             self.view.displayExcel(result)
         elif attack == 'Extract Images':
-            interfaceResult.create_results(attack,file)
+            interfaceResult.create_results(attack,file,content)
         else:
             pass
