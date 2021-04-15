@@ -36,7 +36,7 @@ The educational content is both in the application and in a theoretical report i
 
 This project was developed in Python 3.8.
 
-Other softwares tools such as Wireshark, GNS3 and VrtualBox have been used and will be needed to use the virtual machines or to understand what is happening in the network and how the capture files are structured.
+Other softwares tools such as Wireshark, GNS3 and VirtualBox have been used and will be needed to use the virtual machines or to understand what is happening in the network and how the capture files are structured.
 
 A User Manual is also available in the "doc" folder to install the required python librairies for this platform.
 
